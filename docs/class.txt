@@ -1,0 +1,96 @@
+                     <<abstract-ish base>>
++--------------------------------------------------+
+|                      Person                      |
++--------------------------------------------------+
+| - id: int                                         |
+| - firstName: String                               |
+| - lastName: String                                |
+| - email: String                                   |
++--------------------------------------------------+
+| + getDisplayName(): String                        |
++--------------------------------------------------+
+                 ^                        ^
+                 | extends                | extends
++--------------------------------+   +--------------------------------+
+|            Student             |   |            Trainer             |
++--------------------------------+   +--------------------------------+
+| - batch: String                |   | - specialization: String       |
+| - active: StudentStatus        |   +--------------------------------+
++--------------------------------+   | + getDisplayName(): String {ov}|
+| + getDisplayName(): String {ov}|   +--------------------------------+
++--------------------------------+
+
++------------------------------+
+|       <<enum>>               |
+|      StudentStatus           |
++------------------------------+
+| ACTIVE                       |
+| INACTIVE                     |
++------------------------------+
+
++--------------------------------+
+|             Course             |
++--------------------------------+
+| - id: int                      |
+| - courseName: String           |
+| - description: String          |
+| - durationInWeeks: int         |
+| - active: CourseStatus         |
++--------------------------------+
+
++------------------------------+
+|       <<enum>>               |
+|      CourseStatus            |
++------------------------------+
+| ACTIVE                       |
+| INACTIVE                     |
++------------------------------+
+
++--------------------------------+
+|           Enrollment           |
++--------------------------------+
+| - id: int                      |
+| - studentId: int               |
+| - courseId: int                |
+| - enrollmentDate: String       |
+| - status: EnrollmentStatus     |
++--------------------------------+
+
++------------------------------+
+|       <<enum>>               |
+|      EnrollmentStatus        |
++------------------------------+
+| ACTIVE                       |
+| COMPLETED                    |
+| CANCELLED                    |
++------------------------------+
+
+
+Repositories (composition-ish / in-memory lists)
+-----------------------------------------------
+StudentRepository   1 --------- *  Student
+CourseRepository    1 --------- *  Course
+EnrollmentRepository1 --------- *  Enrollment
+
+
+Services (uses / associations)
+------------------------------
+StudentService     1 ---------> 1  StudentRepository
+CourseService      1 ---------> 1  CourseRepository
+EnrollmentService  1 ---------> 1  EnrollmentRepository
+EnrollmentService  1 ---------> 1  StudentService
+EnrollmentService  1 ---------> 1  CourseService
+
+
+UI Layer
+--------
+Main  1 ---------> 1  StudentService
+Main  1 ---------> 1  CourseService
+Main  1 ---------> 1  EnrollmentService
+
+
+Utilities / Exceptions
+---------------------
+IdGenerator (static counters) -> generates IDs for Student/Course/Enrollment
+InputValidator -> throws InvalidInputException
+EntityNotFoundException thrown by services when ID not found
