@@ -1,6 +1,6 @@
-package com.airtribe.learntrack.entity;
+package com.edtech.learntrack.entity;
 
-import com.airtribe.learntrack.enums.CourseStatus;
+import com.edtech.learntrack.enums.CourseStatus;
 
 public class Course {
     private int id;
@@ -55,8 +55,8 @@ public class Course {
         return status;
     }
 
-    public void setStatus(CourseStatus active) {
-        this.status = active;
+    public void setStatus(CourseStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Course {
                 ", courseName=" + courseName +
                 ", description=" + description +
                 ", durationInWeeks=" + durationInWeeks +
-                ", status=" + status.toString() +
+                ", status=" + status +
                 "}";
     }
 }

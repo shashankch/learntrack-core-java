@@ -1,13 +1,13 @@
-package com.airtribe.learntrack.util;
+package com.edtech.learntrack.util;
 
 public class IdGenerator {
-    private static int studentIdCounter = 1000;
+    private static long studentIdCounter = 1000;
     private static int courseIdCounter = 2000;
     private static int enrollmentIdCounter = 3000;
 
     private IdGenerator() {}
 
-    public static int getNextStudentId() {
+    public static long getNextStudentId() {
         return ++studentIdCounter;
     }
 

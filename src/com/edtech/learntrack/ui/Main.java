@@ -1,20 +1,20 @@
-package com.airtribe.learntrack.ui;
+package com.edtech.learntrack.ui;
 
-import com.airtribe.learntrack.constants.AppConstants;
-import com.airtribe.learntrack.constants.MenuOptions;
-import com.airtribe.learntrack.entity.Course;
-import com.airtribe.learntrack.entity.Enrollment;
-import com.airtribe.learntrack.entity.Student;
-import com.airtribe.learntrack.enums.CourseStatus;
-import com.airtribe.learntrack.enums.EnrollmentStatus;
-import com.airtribe.learntrack.exception.EntityNotFoundException;
-import com.airtribe.learntrack.exception.InvalidInputException;
-import com.airtribe.learntrack.repository.CourseRepository;
-import com.airtribe.learntrack.repository.EnrollmentRepository;
-import com.airtribe.learntrack.repository.StudentRepository;
-import com.airtribe.learntrack.service.CourseService;
-import com.airtribe.learntrack.service.EnrollmentService;
-import com.airtribe.learntrack.service.StudentService;
+import com.edtech.learntrack.constants.AppConstants;
+import com.edtech.learntrack.constants.MenuOptions;
+import com.edtech.learntrack.entity.Course;
+import com.edtech.learntrack.entity.Enrollment;
+import com.edtech.learntrack.entity.Student;
+import com.edtech.learntrack.enums.CourseStatus;
+import com.edtech.learntrack.enums.EnrollmentStatus;
+import com.edtech.learntrack.exception.EntityNotFoundException;
+import com.edtech.learntrack.exception.InvalidInputException;
+import com.edtech.learntrack.repository.CourseRepository;
+import com.edtech.learntrack.repository.EnrollmentRepository;
+import com.edtech.learntrack.repository.StudentRepository;
+import com.edtech.learntrack.service.CourseService;
+import com.edtech.learntrack.service.EnrollmentService;
+import com.edtech.learntrack.service.StudentService;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,10 +48,10 @@ public class Main {
             int choice = readInt("Choose option: ");
             try {
                 switch (choice) {
-                    case MenuOptions.OPTION_1 -> studentMenu();
-                    case MenuOptions.OPTION_2 -> courseMenu();
-                    case MenuOptions.OPTION_3 -> enrollmentMenu();
-                    case MenuOptions.OPTION_0 -> {
+                    case MenuOptions.MAIN_STUDENT_MANAGEMENT -> studentMenu();
+                    case MenuOptions.MAIN_COURSE_MANAGEMENT -> courseMenu();
+                    case MenuOptions.MAIN_ENROLLMENT_MANAGEMENT -> enrollmentMenu();
+                    case MenuOptions.OPTION_EXIT_BACK -> {
                         running = false;
                         System.out.println("Exiting... Bye!");
                     }
@@ -89,12 +89,12 @@ public class Main {
             int choice = readInt("Choose option: ");
             try {
                 switch (choice) {
-                    case MenuOptions.OPTION_1 -> addStudentFlow();
-                    case MenuOptions.OPTION_2 -> listStudentsFlow();
-                    case MenuOptions.OPTION_3 -> findStudentFlow();
-                    case MenuOptions.OPTION_4 -> deactivateStudentFlow();
-                    case MenuOptions.OPTION_5 -> updateStudentEmailFlow();
-                    case MenuOptions.OPTION_0 -> back = true;
+                    case MenuOptions.SUB_OPTION_ADD_OR_ENROLL -> addStudentFlow();
+                    case MenuOptions.SUB_OPTION_LIST_OR_VIEW -> listStudentsFlow();
+                    case MenuOptions.SUB_OPTION_SEARCH_OR_TOGGLE -> findStudentFlow();
+                    case MenuOptions.SUB_OPTION_DEACTIVATE_OR_CANCEL -> deactivateStudentFlow();
+                    case MenuOptions.SUB_OPTION_UPDATE_EMAIL -> updateStudentEmailFlow();
+                    case MenuOptions.OPTION_EXIT_BACK -> back = true;
                     default -> System.out.println("Invalid option. Try again.");
                 }
             } catch (EntityNotFoundException | InvalidInputException ex) {
@@ -134,19 +134,19 @@ public class Main {
     }
 
     private void findStudentFlow() {
-        int id = readInt("Enter student ID: ");
+        long id = readLong("Enter student ID: ");
         Student s = studentService.findStudentById(id);
         System.out.println(s);
     }
 
     private void deactivateStudentFlow() {
-        int id = readInt("Enter student ID to deactivate: ");
+        long id = readLong("Enter student ID to deactivate: ");
         studentService.deactivateStudent(id);
         System.out.println("Student deactivated.");
     }
 
     private void updateStudentEmailFlow() {
-        int id = readInt("Enter student ID: ");
+        long id = readLong("Enter student ID: ");
         String email = readLine("New email: ");
         studentService.updateStudentEmail(id, email);
         System.out.println("Email updated.");
@@ -166,10 +166,10 @@ public class Main {
             int choice = readInt("Choose option: ");
             try {
                 switch (choice) {
-                    case MenuOptions.OPTION_1 -> addCourseFlow();
-                    case MenuOptions.OPTION_2 -> listCoursesFlow();
-                    case MenuOptions.OPTION_3 -> toggleCourseFlow();
-                    case MenuOptions.OPTION_0 -> back = true;
+                    case MenuOptions.SUB_OPTION_ADD_OR_ENROLL -> addCourseFlow();
+                    case MenuOptions.SUB_OPTION_LIST_OR_VIEW -> listCoursesFlow();
+                    case MenuOptions.SUB_OPTION_SEARCH_OR_TOGGLE -> toggleCourseFlow();
+                    case MenuOptions.OPTION_EXIT_BACK -> back = true;
                     default -> System.out.println("Invalid option. Try again.");
                 }
             } catch (EntityNotFoundException | InvalidInputException ex) {
@@ -207,7 +207,7 @@ public class Main {
         System.out.println("Current active: " + c.getStatus().isActive());
         String yn = readLine("Set active? (y/n): ");
         CourseStatus status = "y".equalsIgnoreCase(yn.trim())? CourseStatus.ACTIVE : CourseStatus.INACTIVE;
-        courseService.setCourseActive(id, status);
+        courseService.setCourseStatus(id, status);
         System.out.println("Updated: " + courseService.findCourseById(id));
     }
 
@@ -226,11 +226,11 @@ public class Main {
             int choice = readInt("Choose option: ");
             try {
                 switch (choice) {
-                    case MenuOptions.OPTION_1 -> enrollFlow();
-                    case MenuOptions.OPTION_2 -> listEnrollmentsForStudentFlow();
-                    case MenuOptions.OPTION_3 -> updateEnrollmentStatusFlow(EnrollmentStatus.COMPLETED);
-                    case MenuOptions.OPTION_4 -> updateEnrollmentStatusFlow(EnrollmentStatus.CANCELLED);
-                    case MenuOptions.OPTION_0 -> back = true;
+                    case MenuOptions.SUB_OPTION_ADD_OR_ENROLL -> enrollFlow();
+                    case MenuOptions.SUB_OPTION_LIST_OR_VIEW -> listEnrollmentsForStudentFlow();
+                    case MenuOptions.SUB_OPTION_SEARCH_OR_TOGGLE -> updateEnrollmentStatusFlow(EnrollmentStatus.COMPLETED);
+                    case MenuOptions.SUB_OPTION_DEACTIVATE_OR_CANCEL -> updateEnrollmentStatusFlow(EnrollmentStatus.CANCELLED);
+                    case MenuOptions.OPTION_EXIT_BACK -> back = true;
                     default -> System.out.println("Invalid option. Try again.");
                 }
             } catch (EntityNotFoundException | InvalidInputException ex) {
@@ -240,7 +240,7 @@ public class Main {
     }
 
     private void enrollFlow() {
-        int studentId = readInt("Student ID: ");
+        long studentId = readLong("Student ID: ");
         int courseId = readInt("Course ID: ");
         String date = readLine("Enrollment date (" + AppConstants.DATE_FORMAT_HINT + "): ");
 
@@ -249,7 +249,7 @@ public class Main {
     }
 
     private void listEnrollmentsForStudentFlow() {
-        int studentId = readInt("Student ID: ");
+        long studentId = readLong("Student ID: ");
         List<Enrollment> enrollments = enrollmentService.listEnrollmentsForStudent(studentId);
         if (enrollments.isEmpty()) {
             System.out.println("No enrollments found for student " + studentId);
@@ -273,6 +273,18 @@ public class Main {
             String line = scanner.nextLine();
             try {
                 return Integer.parseInt(line.trim());
+            } catch (NumberFormatException ex) {
+                System.out.println("Please enter a valid number.");
+            }
+        }
+    }
+
+    private long readLong(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String line = scanner.nextLine();
+            try {
+                return Long.parseLong(line.trim());
             } catch (NumberFormatException ex) {
                 System.out.println("Please enter a valid number.");
             }

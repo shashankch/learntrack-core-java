@@ -1,9 +1,8 @@
-package com.airtribe.learntrack.enums;
+package com.edtech.learntrack.enums;
 
 public enum StudentStatus {
     ACTIVE(true),
     INACTIVE(false);
-    //ADDITIONAL_STATUSES_IF_NEEDED
 
     private final boolean isActive;
 

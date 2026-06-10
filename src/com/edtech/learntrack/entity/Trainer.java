@@ -1,11 +1,11 @@
-package com.airtribe.learntrack.entity;
+package com.edtech.learntrack.entity;
 
 public class Trainer extends Person {
     private String specialization;
 
     public Trainer() {}
 
-    public Trainer(int id, String firstName, String lastName, String email, String specialization) {
+    public Trainer(long id, String firstName, String lastName, String email, String specialization) {
         super(id, firstName, lastName, email);
         this.specialization = specialization;
     }

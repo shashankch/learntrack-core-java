@@ -1,25 +1,29 @@
-package com.airtribe.learntrack.entity;
+package com.edtech.learntrack.entity;
+
+import com.edtech.learntrack.util.InputValidator;
+import java.util.Objects;
 
 public class Person {
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String email;
 
     public Person() {}
 
-    public Person(int id, String firstName, String lastName, String email) {
+    public Person(long id, String firstName, String lastName, String email) {
+        InputValidator.requireEmailLike(email);
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -48,8 +52,8 @@ public class Person {
     }
 
     public String getDisplayName() {
-        String fn = (firstName == null) ? "" : firstName.trim();
-        String ln = (lastName == null) ? "" : lastName.trim();
+        String fn = Objects.requireNonNullElse(firstName, "").trim();
+        String ln = Objects.requireNonNullElse(lastName, "").trim();
         String name = (fn + " " + ln).trim();
         return name.isEmpty() ? ("Person#" + id) : name;
     }

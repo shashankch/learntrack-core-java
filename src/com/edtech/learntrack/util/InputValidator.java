@@ -1,6 +1,6 @@
-package com.airtribe.learntrack.util;
+package com.edtech.learntrack.util;
 
-import com.airtribe.learntrack.exception.InvalidInputException;
+import com.edtech.learntrack.exception.InvalidInputException;
 
 public class InputValidator {
 

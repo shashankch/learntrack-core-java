@@ -1,11 +1,12 @@
-package com.airtribe.learntrack.service;
+package com.edtech.learntrack.service;
 
-import com.airtribe.learntrack.entity.Course;
-import com.airtribe.learntrack.enums.CourseStatus;
-import com.airtribe.learntrack.exception.EntityNotFoundException;
-import com.airtribe.learntrack.repository.CourseRepository;
-import com.airtribe.learntrack.util.IdGenerator;
-import com.airtribe.learntrack.util.InputValidator;
+import com.edtech.learntrack.entity.Course;
+import com.edtech.learntrack.enums.CourseStatus;
+import com.edtech.learntrack.exception.EntityNotFoundException;
+import com.edtech.learntrack.exception.InvalidInputException;
+import com.edtech.learntrack.repository.CourseRepository;
+import com.edtech.learntrack.util.IdGenerator;
+import com.edtech.learntrack.util.InputValidator;
 import java.util.List;
 
 public class CourseService {
@@ -16,6 +17,9 @@ public class CourseService {
     }
 
     public Course addCourse(String name, String description, int durationInWeeks) {
+        if (durationInWeeks <= 0) {
+            throw new InvalidInputException("Duration (weeks) must be a positive number.");
+        }
         InputValidator.validateInput(name, "Course name");
         InputValidator.validateInput(durationInWeeks, "Duration (weeks)");
 
@@ -30,15 +34,12 @@ public class CourseService {
     }
 
     public Course findCourseById(int id) {
-        Course c = courseRepository.findById(id);
-        if (c == null) {
-            throw new EntityNotFoundException("Course not found for id: " + id);
-        }
-        return c;
+        return courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found for id: " + id));
     }
 
-    public void setCourseActive(int id, CourseStatus active) {
+    public void setCourseStatus(int id, CourseStatus status) {
         Course c = findCourseById(id);
-        c.setStatus(active);
+        c.setStatus(status);
     }
 }

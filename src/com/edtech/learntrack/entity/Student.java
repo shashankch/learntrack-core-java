@@ -1,6 +1,6 @@
-package com.airtribe.learntrack.entity;
+package com.edtech.learntrack.entity;
 
-import com.airtribe.learntrack.enums.StudentStatus;
+import com.edtech.learntrack.enums.StudentStatus;
 
 public class Student extends Person {
     private String batch;
@@ -8,14 +8,13 @@ public class Student extends Person {
 
     public Student() {}
 
-    // Constructor overloading example: without email
-    public Student(int id, String firstName, String lastName, String batch) {
+    public Student(long id, String firstName, String lastName, String batch) {
         super(id, firstName, lastName, null);
         this.batch = batch;
         this.status = StudentStatus.ACTIVE;
     }
 
-    public Student(int id, String firstName, String lastName, String email, String batch, StudentStatus status) {
+    public Student(long id, String firstName, String lastName, String email, String batch, StudentStatus status) {
         super(id, firstName, lastName, email);
         this.batch = batch;
         this.status = status;
@@ -49,7 +48,7 @@ public class Student extends Person {
                 ", name=" + getDisplayName() +
                 ", email=" + getEmail()+
                 ", batch=" + getBatch() +
-                ", status=" + status.toString() +
+                ", status=" + status +
                 "}";
     }
 }

@@ -1,17 +1,18 @@
-package com.airtribe.learntrack.entity;
+package com.edtech.learntrack.entity;
 
-import com.airtribe.learntrack.enums.EnrollmentStatus;
+import com.edtech.learntrack.enums.EnrollmentStatus;
+import java.time.LocalDate;
 
 public class Enrollment {
     private int id;
-    private int studentId;
+    private long studentId;
     private int courseId;
-    private String enrollmentDate; // keeping String to stay beginner-friendly(LocalDateTime)
+    private LocalDate enrollmentDate;
     private EnrollmentStatus status;
 
     public Enrollment() {}
 
-    public Enrollment(int id, int studentId, int courseId, String enrollmentDate, EnrollmentStatus status) {
+    public Enrollment(int id, long studentId, int courseId, LocalDate enrollmentDate, EnrollmentStatus status) {
         this.id = id;
         this.studentId = studentId;
         this.courseId = courseId;
@@ -27,11 +28,11 @@ public class Enrollment {
         this.id = id;
     }
 
-    public int getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(long studentId) {
         this.studentId = studentId;
     }
 
@@ -43,11 +44,11 @@ public class Enrollment {
         this.courseId = courseId;
     }
 
-    public String getEnrollmentDate() {
+    public LocalDate getEnrollmentDate() {
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(String enrollmentDate) {
+    public void setEnrollmentDate(LocalDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
 
@@ -66,7 +67,7 @@ public class Enrollment {
                 ", studentId=" + studentId +
                 ", courseId=" + courseId +
                 ", enrollmentDate=" + enrollmentDate +
-                ", status=" + status.toString() +
+                ", status=" + status +
                 "}";
     }
 }

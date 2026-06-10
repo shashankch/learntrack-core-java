@@ -1,6 +1,6 @@
-package com.airtribe.learntrack.repository;
+package com.edtech.learntrack.repository;
 
-import com.airtribe.learntrack.entity.Enrollment;
+import com.edtech.learntrack.entity.Enrollment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +18,19 @@ public class EnrollmentRepository {
 
     public Enrollment findById(int id) {
         for (Enrollment e : enrollments) {
-            if (e.getId() == id) return e;
+            if (e.getId() == id) {
+                return e;
+            }
         }
         return null;
     }
 
-    public List<Enrollment> findByStudentId(int studentId) {
+    public List<Enrollment> findByStudentId(long studentId) {
         List<Enrollment> result = new ArrayList<>();
         for (Enrollment e : enrollments) {
-            if (e.getStudentId() == studentId) result.add(e);
+            if (e.getStudentId() == studentId) {
+                result.add(e);
+            }
         }
         return result;
     }

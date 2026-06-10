@@ -22,7 +22,7 @@ LearnTrack/
 │   └── diagram.png
 └── src/
     └── com/
-        └── airtribe/
+        └── edtech/
             └── learntrack/
                 ├── constants/
                 │   ├── AppConstants.java
@@ -65,7 +65,7 @@ mkdir -p out
 javac -d out $(find src -name "*.java")
 
 # run
-java -cp out com.airtribe.learntrack.ui.Main
+java -cp out com.edtech.learntrack.ui.Main
 ```
 
 ## Features

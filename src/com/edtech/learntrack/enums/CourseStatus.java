@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.enums;
+package com.edtech.learntrack.enums;
 
 public enum CourseStatus {
     ACTIVE(true),

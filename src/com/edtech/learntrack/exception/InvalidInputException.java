@@ -1,4 +1,4 @@
-package com.airtribe.learntrack.exception;
+package com.edtech.learntrack.exception;
 
 public class InvalidInputException extends RuntimeException {
     public InvalidInputException(String message) {

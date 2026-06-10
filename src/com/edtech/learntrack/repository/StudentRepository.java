@@ -1,9 +1,9 @@
-package com.airtribe.learntrack.repository;
+package com.edtech.learntrack.repository;
 
-import com.airtribe.learntrack.entity.Student;
-
+import com.edtech.learntrack.entity.Student;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentRepository {
     private final List<Student> students = new ArrayList<>();
@@ -16,10 +16,12 @@ public class StudentRepository {
         return new ArrayList<>(students);
     }
 
-    public Student findById(int id) {
+    public Optional<Student> findById(long id) {
         for (Student s : students) {
-            if (s.getId() == id) return s;
+            if (s.getId() == id) {
+                return Optional.of(s);
+            }
         }
-        return null;
+        return Optional.empty();
     }
 }
